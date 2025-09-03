@@ -22,13 +22,14 @@
       padding:0.5rem 1rem;background:#fff;color:#000;
       border-radius:6px;text-decoration:none;font-weight:bold;
     }
+    #countdown { font-size:2rem; font-weight:bold; }
   </style>
 </head>
 <body>
   <div>
-    <h1>D-A-S-C on Hugging Face</h1>
-    <p>You will be redirected in <span id="countdown">100</span> seconds…</p>
-    <p>If you don’t want to wait, <a href="https://huggingface.co/D-A-S-C">click here</a>.</p>
+    <h1>Launching D-A-S-C on Hugging Face…</h1>
+    <p>Redirecting in <span id="countdown">100</span> seconds</p>
+    <p>If you don’t want to wait, <a href="https://huggingface.co/D-A-S-C">click here now</a>.</p>
   </div>
 
   <script>
@@ -36,11 +37,12 @@
     let seconds = 100;
     const countdownEl = document.getElementById("countdown");
 
-    const interval = setInterval(() => {
+    // Update every second
+    const timer = setInterval(() => {
       seconds--;
       countdownEl.textContent = seconds;
       if (seconds <= 0) {
-        clearInterval(interval);
+        clearInterval(timer);
         window.location.href = target;
       }
     }, 1000);
