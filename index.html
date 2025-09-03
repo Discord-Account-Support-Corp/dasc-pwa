@@ -12,10 +12,10 @@
   <link rel="apple-touch-icon" href="icons/icon-192.png">
 
   <style>
-    body { 
+    body {
       display:flex;align-items:center;justify-content:center;
-      height:100vh;margin:0;font-family:sans-serif;color:white;background:#0a0a0a;
-      text-align:center;
+      height:100vh;margin:0;font-family:sans-serif;
+      color:white;background:#0a0a0a;text-align:center;
     }
     a {
       display:inline-block;margin-top:1rem;
@@ -26,14 +26,24 @@
 </head>
 <body>
   <div>
-    <h1>Redirecting to D-A-S-C on Hugging Face…</h1>
-    <p>If nothing happens, <a href="https://huggingface.co/D-A-S-C">click here</a>.</p>
+    <h1>D-A-S-C on Hugging Face</h1>
+    <p>You will be redirected in <span id="countdown">100</span> seconds…</p>
+    <p>If you don’t want to wait, <a href="https://huggingface.co/D-A-S-C">click here</a>.</p>
   </div>
 
   <script>
-    setTimeout(() => {
-      window.location.href = "https://huggingface.co/D-A-S-C";
-    }, 1000); // 1 second delay
+    const target = "https://huggingface.co/D-A-S-C";
+    let seconds = 100;
+    const countdownEl = document.getElementById("countdown");
+
+    const interval = setInterval(() => {
+      seconds--;
+      countdownEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(interval);
+        window.location.href = target;
+      }
+    }, 1000);
   </script>
 </body>
 </html>
