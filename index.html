@@ -1,70 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8" />
   <title>D-A-S-C • Hugging Face</title>
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#0a0a0a">
-  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
   <style>
     body {
-      display:flex;align-items:center;justify-content:center;
-      height:100vh;margin:0;font-family:sans-serif;
-      color:white;background:#0a0a0a;text-align:center;
+      font-family: system-ui, sans-serif;
+      padding: 2em;
+      text-align: center;
+      background: #0a0a0a;
+      color: white;
     }
-    a {
-      display:inline-block;margin-top:1rem;
-      padding:0.5rem 1rem;background:#fff;color:#000;
-      border-radius:6px;text-decoration:none;font-weight:bold;
+    button {
+      padding: 12px 24px;
+      background: #ffcc00;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
     }
-    #countdown { font-size:2rem; font-weight:bold; }
+    button:hover {
+      background: #ffd633;
+    }
+    p {
+      margin-top: 1em;
+    }
   </style>
 </head>
 <body>
-  <div>
-    <h1>D-A-S-C on Hugging Face</h1>
-    <p>Redirecting in <span id="countdown">100</span> seconds…</p>
-    <p>If you don’t want to wait, <a id="openNow" href="#">Open now</a>.</p>
-  </div>
+  <h1>D-A-S-C</h1>
+  <p>This app will redirect you to the Hugging Face organization page.</p>
+  <button onclick="launchHF()">Open Now</button>
+  <p>If you are not redirected, 
+     <a href="https://huggingface.co/D-A-S-C" style="color:#ffcc00;">click here</a>.
+  </p>
 
   <script>
     const target = "https://huggingface.co/D-A-S-C";
-    let seconds = 100;
-    const countdownEl = document.getElementById("countdown");
-    const openNow = document.getElementById("openNow");
 
-    // Detect if running as a PWA (standalone)
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
-                      || window.navigator.standalone;
-
-    function openApp() {
-      if (isStandalone) {
-        // Stay inside the PWA (top-level navigation)
+    function launchHF() {
+      if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+        // Inside PWA
         window.location.assign(target);
       } else {
-        // Fallback if opened in Safari/Browser
+        // Browser
         window.open(target, "_blank");
       }
     }
 
-    // Countdown
-    const timer = setInterval(() => {
-      seconds--;
-      countdownEl.textContent = seconds;
-      if (seconds <= 0) {
-        clearInterval(timer);
-        openApp();
-      }
-    }, 1000);
-
-    // Manual "Open now" button
-    openNow.addEventListener("click", (e) => {
-      e.preventDefault();
-      openApp();
-    });
+    // Auto redirect after 3 seconds if in PWA
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+      setTimeout(launchHF, 3000);
+    }
   </script>
 </body>
 </html>
