@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>D-A-S-C • Hugging Face</title>
+
+  <!-- Manifest + PWA -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+  <h1>Launching Hugging Face…</h1>
+  <p><a href="https://huggingface.co/D-A-S-C">Open D-A-S-C</a></p>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+    setTimeout(() => {
+      window.location.replace('https://huggingface.co/D-A-S-C');
+    }, 800);
+  </script>
+</body>
+</html>
