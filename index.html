@@ -27,25 +27,46 @@
 </head>
 <body>
   <div>
-    <h1>Launching D-A-S-C on Hugging Face…</h1>
-    <p>Redirecting in <span id="countdown">100</span> seconds</p>
-    <p>If you don’t want to wait, <a href="https://huggingface.co/D-A-S-C">click here now</a>.</p>
+    <h1>D-A-S-C on Hugging Face</h1>
+    <p>Redirecting in <span id="countdown">100</span> seconds…</p>
+    <p>If you don’t want to wait, <a id="openNow" href="#">Open now</a>.</p>
   </div>
 
   <script>
     const target = "https://huggingface.co/D-A-S-C";
     let seconds = 100;
     const countdownEl = document.getElementById("countdown");
+    const openNow = document.getElementById("openNow");
 
-    // Update every second
+    // Detect if running as a PWA (standalone)
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
+                      || window.navigator.standalone;
+
+    function openApp() {
+      if (isStandalone) {
+        // Stay inside the PWA (top-level navigation)
+        window.location.assign(target);
+      } else {
+        // Fallback if opened in Safari/Browser
+        window.open(target, "_blank");
+      }
+    }
+
+    // Countdown
     const timer = setInterval(() => {
       seconds--;
       countdownEl.textContent = seconds;
       if (seconds <= 0) {
         clearInterval(timer);
-        window.location.href = target;
+        openApp();
       }
     }, 1000);
+
+    // Manual "Open now" button
+    openNow.addEventListener("click", (e) => {
+      e.preventDefault();
+      openApp();
+    });
   </script>
 </body>
 </html>
